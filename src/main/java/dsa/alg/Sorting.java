@@ -1,5 +1,7 @@
 package dsa.alg;
 
+import java.util.Arrays;
+
 public class Sorting {
 
     /**
@@ -46,6 +48,57 @@ public class Sorting {
                     array[j-1] = temp;
                     j--;
                 }
+            }
+        }
+    }
+
+    /**
+     * Performs the merge sort algorithm to sort an array in ascending order in-place.
+     * @param array Array to be sorted
+     * @param <T> A comparable type.
+     */
+    public static <T extends Comparable<T>> void mergeSort(T[] array) {
+        // Base case: return array less than size of 2
+        if(array.length <= 1) {
+            return;
+        }
+
+        // Split array into left and right
+        int length = array.length;
+        int mid = length / 2;
+
+        T[] left = Arrays.copyOfRange(array, 0, mid);
+        T[] right = Arrays.copyOfRange(array, mid, length);
+
+        // Sort left and right sides
+        mergeSort(left);
+        mergeSort(right);
+
+        // Merge left and right arrays to get fully sorted array
+        int l = 0;
+        int r = 0;
+        int i = 0;
+
+        while((l < left.length) || (r < right.length)) {
+            if(l == left.length) {
+                array[i] = right[r];
+                i++;
+                r++;
+            }
+            else if(r == right.length) {
+                array[i] = left[l];
+                i++;
+                l++;
+            }
+            else if(left[l].compareTo(right[r]) <= 0) {
+                array[i] = left[l];
+                i++;
+                l++;
+            }
+            else {
+                array[i] = right[r];
+                i++;
+                r++;
             }
         }
     }
