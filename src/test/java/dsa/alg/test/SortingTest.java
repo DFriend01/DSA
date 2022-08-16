@@ -65,6 +65,27 @@ public class SortingTest {
     }
 
     @Test
+    public void testBubbleSort1() {
+        Integer[] array = Arrays.copyOf(testArr1, testArr1.length);
+        Sorting.bubbleSort(array);
+        assertTrue(checkArray(array));
+    }
+
+    @Test
+    public void testBubbleSort2() {
+        Integer[] array = Arrays.copyOf(testArr2, testArr2.length);
+        Sorting.bubbleSort(array);
+        assertTrue(checkArray(array));
+    }
+
+    @Test
+    public void testBubbleSort3() {
+        Double[] array = Arrays.copyOf(testArr3, testArr3.length);
+        Sorting.bubbleSort(array);
+        assertTrue(checkArray(array));
+    }
+
+    @Test
     public void testMergeSort1() {
         Integer[] array = Arrays.copyOf(testArr1, testArr1.length);
         Sorting.mergeSort(array);
