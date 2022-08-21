@@ -1,6 +1,9 @@
 package dsa.alg;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.lang.Math;
 
 public class Sorting {
 
@@ -116,6 +119,53 @@ public class Sorting {
                 array[i] = right[r];
                 i++;
                 r++;
+            }
+        }
+    }
+
+    /**
+     * Performs the radix sort algorithm to sort an array of long values in base 10
+     * in ascending order.
+     * @param array The array to be sorted.
+     */
+    public static void radixSort(Long[] array) {
+
+        // Find the integer with the largest amount of digits
+        long maxNumDigits = 0;
+        for(long n : array) {
+            maxNumDigits = Math.max(maxNumDigits, (long)Math.log10((double)n) + 1);
+        }
+
+        // Perform k passes where k is the max number of digits
+        for(long i = 0; i < maxNumDigits; i++) {
+
+            // Initialize hashmap for each digit
+            HashMap<Long, ArrayList<Long>> nums = new HashMap<>();
+            for(long d = 0; d < 10; d++) {
+                nums.put(d, new ArrayList<>());
+            }
+
+            // Go through array and bucket numbers by kth digit
+            for(long n : array) {
+
+                // Extract the kth digit
+                long n_copy = n;
+                for(long k = 0; k < i; k++) {
+                    n_copy /= 10;
+                }
+                long digit = n_copy % 10;
+
+                // Add number into bucket based on digit
+                nums.get(digit).add(n);
+            }
+
+            // Go through each bucket and add the numbers back to the array in order
+            int idx = 0;
+            for (long bucket = 0; bucket < 10; bucket++) {
+                for(Long n : nums.get(bucket)) {
+                    array[idx] = n;
+                    idx++;
+                }
             }
         }
     }
